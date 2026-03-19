@@ -1,0 +1,55 @@
+// Interface (Abstraction)
+interface PaymentMethod {
+    void processPayment(double amount);
+}
+
+// Concrete Class: Credit Card
+class CreditCardPayment implements PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing Credit Card payment of ₹" + amount);
+    }
+}
+
+// Concrete Class: PayPal
+class PayPalPayment implements PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing PayPal payment of ₹" + amount);
+    }
+}
+
+// Concrete Class: UPI
+class UPIPayment implements PaymentMethod {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing UPI payment of ₹" + amount);
+    }
+}
+
+// Service Class (DIP applied here)
+class PaymentProcessor {
+
+    // Depends on abstraction, not concrete class
+    public void makePayment(PaymentMethod paymentMethod, double amount) {
+        paymentMethod.processPayment(amount);
+    }
+}
+
+// Main Class
+public class PaymentSystem {
+    public static void main(String[] args) {
+
+        PaymentProcessor processor = new PaymentProcessor();
+
+        // Different payment methods
+        PaymentMethod creditCard = new CreditCardPayment();
+        PaymentMethod paypal = new PayPalPayment();
+        PaymentMethod upi = new UPIPayment();
+
+        // Process payments
+        processor.makePayment(1500.0, creditCard);
+        processor.makePayment(2000.0, paypal);
+        processor.makePayment(500.0, upi);
+    }
+}
