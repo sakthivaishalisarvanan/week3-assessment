@@ -1,0 +1,105 @@
+abstract class Device {
+    private String deviceName;
+    private boolean powerStatus; // true = ON, false = OFF
+
+    // Constructor
+    public Device(String deviceName) {
+        this.deviceName = deviceName;
+        this.powerStatus = false;
+    }
+
+    // Getter & Setter (Encapsulation)
+    public String getDeviceName() {
+        return deviceName;
+    }
+
+    public boolean isPowerOn() {
+        return powerStatus;
+    }
+
+    public void setPowerStatus(boolean status) {
+        this.powerStatus = status;
+    }
+
+    // Common methods
+    public void turnOn() {
+        powerStatus = true;
+        System.out.println(deviceName + " turned ON");
+    }
+
+    public void turnOff() {
+        powerStatus = false;
+        System.out.println(deviceName + " turned OFF");
+    }
+
+    // Abstract method (Abstraction)
+    abstract void displayStatus();
+}
+
+// Derived Class: Light
+class Light extends Device {
+
+    public Light(String name) {
+        super(name);
+    }
+
+    // Polymorphism
+    @Override
+    void displayStatus() {
+        System.out.println("Light [" + getDeviceName() + "] is " 
+            + (isPowerOn() ? "ON" : "OFF"));
+    }
+}
+
+// Derived Class: Thermostat
+class Thermostat extends Device {
+    private int temperature;
+
+    public Thermostat(String name, int temp) {
+        super(name);
+        this.temperature = temp;
+    }
+
+    // Getter & Setter
+    public int getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(int temp) {
+        this.temperature = temp;
+    }
+
+    // Polymorphism
+    @Override
+    void displayStatus() {
+        System.out.println("Thermostat [" + getDeviceName() + "] is "
+            + (isPowerOn() ? "ON" : "OFF") 
+            + " | Temperature: " + temperature + "°C");
+    }
+}
+
+// Main Class
+public class SmartHomeDeviceSystem {
+    public static void main(String[] args) {
+
+        // Create objects using parent reference (Polymorphism)
+        Device d1 = new Light("Bedroom Light");
+        Device d2 = new Thermostat("Hall Thermostat", 25);
+
+        // Turn ON devices
+        d1.turnOn();
+        d2.turnOn();
+
+        // Display status
+        d1.displayStatus();
+        d2.displayStatus();
+
+        // Turn OFF devices
+        d1.turnOff();
+        d2.turnOff();
+
+        // Display status again
+        d1.displayStatus();
+        d2.displayStatus();
+    }
+}
