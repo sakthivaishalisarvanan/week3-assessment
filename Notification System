@@ -1,0 +1,54 @@
+// Interface 1: Email Sender
+interface EmailSender {
+    void sendEmail(String message);
+}
+
+// Interface 2: SMS Sender
+interface SMSSender {
+    void sendSMS(String message);
+}
+
+// Interface 3: Push Notification Sender
+interface PushNotificationSender {
+    void sendPushNotification(String message);
+}
+
+// Class 1: Email Notification (SRP + ISP)
+class EmailNotification implements EmailSender {
+    @Override
+    public void sendEmail(String message) {
+        System.out.println("Email sent: " + message);
+    }
+}
+
+// Class 2: SMS Notification (SRP + ISP)
+class SMSNotification implements SMSSender {
+    @Override
+    public void sendSMS(String message) {
+        System.out.println("SMS sent: " + message);
+    }
+}
+
+// Class 3: Mobile App Notification (SRP + ISP)
+class MobileAppNotification implements PushNotificationSender {
+    @Override
+    public void sendPushNotification(String message) {
+        System.out.println("Push Notification sent: " + message);
+    }
+}
+
+// Main Class
+public class NotificationSystem {
+    public static void main(String[] args) {
+
+        // Create objects
+        EmailSender email = new EmailNotification();
+        SMSSender sms = new SMSNotification();
+        PushNotificationSender push = new MobileAppNotification();
+
+        // Send notifications
+        email.sendEmail("Welcome to our service!");
+        sms.sendSMS("Your OTP is 123456");
+        push.sendPushNotification("You have a new message");
+    }
+}
